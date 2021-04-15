@@ -64,7 +64,7 @@ class Player(BaseComponent):
         Кликает на пробел
         """
         watch_page = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.visibility_of_element_located((By.XPATH, self.locators.watch_page))
+            EC.visibility_of_element_located((By.XPATH, '//body'))
         )
         watch_page.send_keys(Keys.SPACE)
 

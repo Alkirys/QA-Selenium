@@ -32,6 +32,13 @@ class CheckPlayer(unittest.TestCase):
         is_all_right = self.player_page.check_player_pause()
         self.assertTrue(is_all_right)
 
+    def test_check_player_pause_by_space(self):
+        self.main_page.move_to_card()
+        self.main_page.open_card_player()
+        self.player_page.set_pause_by_space()
+        is_all_right = self.player_page.check_player_pause()
+        self.assertTrue(is_all_right)
+
     def test_check_player_mute(self):
         self.main_page.open_auth_popup()
         self.main_page.auth(self.EMAIL, self.PASSWORD)
