@@ -9,6 +9,8 @@ class AuthLocators:
     def __init__(self):
         self.root = '//div[@class="content__info-block-wrapper"]'
         self.film_button = '//div[@class="content__slider-item"]/button'
+        self.infoblock_like_button = '//button[@class="info-block__like-btn like-btn"]'
+        self.infoblock_dislike_button = '//button[@class="info-block__dislike-btn dislike-btn"]'
         self.infoblock_wrapper = '//div[@class="info-block__main-wrapper"]'
         self.details_button = '//a[@class="tabs__list-item-text "]'
         self.details_block = '//div[@class="info-block__page-details info-block_page"]'
@@ -25,6 +27,7 @@ class AuthLocators:
         self.film_buttons_list = '//*[@class="item__card"]'
         self.subscribe_button = '//*[contains(text(), "Оформить подписку")]'
         self.block = '//div[@class="content__info-block"]'
+        self.auth_popup = '//h1[@class="popup-container__heading"]'
 
 
 class InfoblockFilm(BaseComponent):
@@ -34,6 +37,42 @@ class InfoblockFilm(BaseComponent):
         self.wait = WebDriverWait(self.driver, 20)
         self.locators = AuthLocators()
         self.player_url = ""
+
+    def click_like_button(self):
+        """
+        Нажимает на кнопку Like
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.element_to_be_clickable((By.XPATH, self.locators.infoblock_like_button))
+        )
+        submit.click()
+
+    def click_add_my_list_button(self):
+        """
+        Нажимает на кнопку Like
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.element_to_be_clickable((By.XPATH, self.locators.add_my_list_button))
+        )
+        submit.click()
+
+    def click_dislike_button(self):
+        """
+        Нажимает на кнопку disLike
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.element_to_be_clickable((By.XPATH, self.locators.infoblock_dislike_button))
+        )
+        submit.click()
+
+    def check_auth_popup_open(self) -> bool:
+        """
+        Проверяет, открыт ли попап авторизации
+        """
+        details_block = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.visibility_of_element_located((By.XPATH, self.locators.auth_popup))
+        )
+        return details_block.text == "Авторизация"
     
     def check_appearance(self) -> bool:
         """

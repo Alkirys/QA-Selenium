@@ -21,6 +21,8 @@ class AuthLocators:
         self.season_button = '//button[@class="modal__season-button"]'
         self.series_button = '//div[@class="modal__grid modal__season-grid"]/div/div/button'
         self.popup = '//div[@class="content-popup"]'
+        self.popup_add_my_list_button = '//button[@class="modal__add-btn add-btn item__btn"]'
+        self.popup_add_my_list_button_image = '//button[@class="modal__add-btn add-btn item__btn"]/img'
 
 
 class PopupFilm(BaseComponent):
@@ -34,6 +36,7 @@ class PopupFilm(BaseComponent):
         self.same_film_id = ""
         self.season_number = ""
         self.player_url = ""
+        self.add_my_list_image_src = ""
         self.genre_url = "https://www.flicksbox.ru/movies"
         self.actor_url = "https://www.flicksbox.ru/actor"
         self.director_url = "https://www.flicksbox.ru/director"
@@ -73,6 +76,25 @@ class PopupFilm(BaseComponent):
             EC.presence_of_element_located((By.XPATH, self.locators.popup_like_button_image))
         )
         return is_liked.get_attribute("src") != self.like_image_src
+
+    def click_add_my_list_button(self):
+        """
+        Нажимает на кнопку Like
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.element_to_be_clickable((By.XPATH, self.locators.popup_add_my_list_button))
+        )
+        self.add_my_list_image_src = submit.get_attribute("src")
+        submit.click()
+
+    def check_add_my_list_clicked(self) -> bool:
+        """
+        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        """
+        is_added = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.presence_of_element_located((By.XPATH, self.locators.popup_add_my_list_button_image))
+        )
+        return is_added.get_attribute("src") != self.add_my_list_image_src
 
     def click_dislike_button(self):
         """
