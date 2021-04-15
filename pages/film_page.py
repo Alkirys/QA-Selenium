@@ -39,7 +39,6 @@ class FilmPage(BasePage):
             for i in range(0, films_len):
                 films = self.infoblock_film.get_films()
                 self.infoblock_film.click_film(films[i])
-                print(i)
                 if self.infoblock_film.check_subscription_label():
                     return
                 self.infoblock_film.click_close_button()

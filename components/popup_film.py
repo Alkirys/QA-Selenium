@@ -1,8 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import time
-
 from components.base_component import BaseComponent
 
 
@@ -22,6 +20,7 @@ class AuthLocators:
         self.popup_paragraphs = '//*[@class="modal__headline margin"]'
         self.season_button = '//button[@class="modal__season-button"]'
         self.series_button = '//div[@class="modal__grid modal__season-grid"]/div/div/button'
+        self.popup = '//div[@class="content-popup"]'
 
 
 class PopupFilm(BaseComponent):
@@ -38,6 +37,14 @@ class PopupFilm(BaseComponent):
         self.genre_url = "https://www.flicksbox.ru/movies"
         self.actor_url = "https://www.flicksbox.ru/actor"
         self.director_url = "https://www.flicksbox.ru/director"
+    
+    def check_appearance(self) -> bool:
+        """
+        Ождиает пока не откроется информационный попап
+        """
+        element = self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, self.locators.popup)))
+        return element.text
 
     def open_popup(self):
         """

@@ -1,8 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import time
-
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from components.base_component import BaseComponent
 
 
@@ -25,6 +24,7 @@ class AuthLocators:
         self.play_button = '//button[@class="modal__play-btn play-btn item__btn"]'
         self.film_buttons_list = '//*[@class="item__card"]'
         self.subscribe_button = '//*[contains(text(), "Оформить подписку")]'
+        self.block = '//div[@class="content__info-block"]'
 
 
 class InfoblockFilm(BaseComponent):
@@ -34,6 +34,17 @@ class InfoblockFilm(BaseComponent):
         self.wait = WebDriverWait(self.driver, 20)
         self.locators = AuthLocators()
         self.player_url = ""
+    
+    def check_appearance(self) -> bool:
+        """
+        Ождиает пока не откроется информационный блок
+        """
+        try:
+            element = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, self.locators.block)))
+        except TimeoutException:
+            return False
+        return True
 
     def open_infoblock(self):
         """
@@ -99,8 +110,6 @@ class InfoblockFilm(BaseComponent):
         button = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.episode_button))
         )
-        print(button)
-        print(button.text)
         serial_id = button.get_attribute("data-id")
         serial_season = button.get_attribute("data-season")
         serial_episode = button.get_attribute("data-episode")
@@ -171,9 +180,6 @@ class InfoblockFilm(BaseComponent):
         label = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.need_subscription_label))
         )
-        # print(label)
-        # print(label.text)
-        # print(self.driver.execute_script("return document.getElementsByClassName('misc-item')[0].style.background-color"))
         return label.text == "ТРЕБУЕТСЯ ПОДПИСКА"
 
     def click_play_button(self):
