@@ -194,3 +194,4 @@ class MainPage(BasePage):
     def check_closed_popup(self) -> bool:
         self.reg_form.click_close_btn()
         return self.reg_form.check_disappear()
+

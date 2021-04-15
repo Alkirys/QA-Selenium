@@ -20,6 +20,7 @@ class NavbarLocators:
         self.search_line_input = '//input[@class="search-line__input"]'
         self.search_prompt_window = '//div[@class="prompt-window"]'
         self.prompt_label = '//a[@class="prompt-window__label"]'
+        self.avatar = '//img[@class="header__avatar"]'
 
 
 class NavbarForm(BaseComponent):
@@ -144,3 +145,8 @@ class NavbarForm(BaseComponent):
         except TimeoutException:
             return False
         return True
+
+    def current_avatar(self):
+        element = self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, self.locators.avatar)))
+        return element.get_attribute("src")

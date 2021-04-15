@@ -25,6 +25,7 @@ class SettingsLocators:
         self.safety_button = '//a[@class="menu-bar__list-item-text list-item__last-child"]'
         self.info_button = '//a[@class="menu-bar__list-item-text list-item__first-child"]'
         self.safety_clicked_button = '//a[@class="menu-bar__list-item-text list-item__last-child list-item-text_selected"]'
+        self.avatar_btn = '//button[@class="user-meta__edit-btn"]'
 
 
 class SettingsForm(BaseComponent):
@@ -177,3 +178,12 @@ class SettingsForm(BaseComponent):
             EC.visibility_of_element_located((By.XPATH, self.locators.safety_clicked_button))
         )
         return bool(button)
+
+    def click_upload_avatar(self):
+        """
+        Открывает панель настроек
+        """
+        btn = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.presence_of_element_located((By.XPATH, self.locators.avatar_btn))
+        )
+        btn.click()

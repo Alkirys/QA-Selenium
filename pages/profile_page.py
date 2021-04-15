@@ -1,6 +1,8 @@
-from components.auth_form import AuthForm
+from components.navbar_form import NavbarForm
 from components.settings_form import SettingsForm
 from pages.base import BasePage
+import pyautogui
+import os
 
 
 class ProfilePage(BasePage):
@@ -12,6 +14,7 @@ class ProfilePage(BasePage):
         self.PATH = 'profile'
         self.settings_form = SettingsForm(driver)
         super(ProfilePage, self).__init__(driver, self.settings_form.locators.root)
+        self.navbar_form = NavbarForm(self.driver)
 
     def click_settings_form_button(self):
         self.settings_form.open_form()
@@ -57,3 +60,12 @@ class ProfilePage(BasePage):
 
     def submit_form(self):
         self.settings_form.submit_form_password()
+
+    def check_changing_avatar(self) -> bool:
+        prev = self.navbar_form.current_avatar()
+        self.settings_form.click_upload_avatar()
+        pyautogui.write(os.path.abspath('./img/avatar.jpg'))
+        pyautogui.press('enter')
+        curr = self.navbar_form.current_avatar()
+        return not prev == curr
+
