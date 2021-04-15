@@ -95,5 +95,15 @@ class CheckSettingsChange(unittest.TestCase):
         is_closed = self.profile_page.check_close_clicked()
         self.assertTrue(is_closed)
 
+    def test_subscription(self):
+        self.main_page.open_auth_popup()
+        self.main_page.auth(self.EMAIL, self.PASSWORD)
+        is_auth = self.main_page.check_auth()
+        self.assertTrue(is_auth)
+        self.profile_page.open()
+        self.profile_page.click_subscription_button()
+        is_closed = self.profile_page.check_umoney_redirected()
+        self.assertTrue(is_closed)
+
     def tearDown(self):
         self.driver.quit()
