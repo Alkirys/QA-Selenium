@@ -46,7 +46,6 @@ class Card(BaseComponent):
             EC.visibility_of_element_located((By.XPATH, self.locators.info_block_btn))
         )
         card.click()
-    
 
     def click_player_btn(self):
         """
