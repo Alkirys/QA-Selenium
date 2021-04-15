@@ -30,6 +30,10 @@ class MainPage(BasePage):
         self.navbar_form.click_login_menu()
         self.navbar_form.click_login_button()
 
+    def open_exit_popup(self):
+        self.navbar_form.click_login_menu()
+        self.navbar_form.click_exit_button()
+
     def open_reg_popup(self):
         self.navbar_form.click_login_menu()
         self.navbar_form.click_reg_button()
@@ -78,6 +82,9 @@ class MainPage(BasePage):
 
     def check_auth(self) -> bool:
         return self.navbar_form.check_auth_is_right()
+
+    def check_exit(self) -> bool:
+        return self.navbar_form.check_exit_is_right()
 
     def check_reg_popup_appearance(self) -> bool:
         return self.reg_form.check_appearance()
