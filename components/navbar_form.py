@@ -11,6 +11,7 @@ class NavbarLocators:
     def __init__(self):
         self.login_menu_btn = '//img[@class="header__arrow"]'
         self.login_btn = '//*[contains(text(),"Вход")]'
+        self.reg_btn = '//*[contains(text(),"Регистрация")]'
         self.my_list_btn = '//a[@href="/mylist"]'
         self.search_magnifier_to_open = '//img[@class="header__search-img control__item"]'
         self.search_magnifier_to_search = '//img[@class="search-line__img"]'
@@ -44,6 +45,15 @@ class NavbarForm(BaseComponent):
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.login_btn))
+        )
+        submit.click()
+    
+    def click_reg_button(self):
+        """
+        Кликает на кнопку "Регистрация"
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.presence_of_element_located((By.XPATH, self.locators.reg_btn))
         )
         submit.click()
     
