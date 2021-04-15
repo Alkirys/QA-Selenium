@@ -34,7 +34,7 @@ class NavbarForm(BaseComponent):
         Вызывает подменю для входа
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.presence_of_element_located((By.XPATH, self.locators.login_menu_btn))
+            EC.element_to_be_clickable((By.XPATH, self.locators.login_menu_btn))
         )
         submit.click()
 

@@ -1,6 +1,6 @@
 from components.auth_form import AuthForm
 from components.main_view import MainView
-from components.filters import Filters
+from components.filter import Filter
 from pages.base import BasePage
 
 
@@ -14,7 +14,7 @@ class ContentPage(BasePage):
         self.auth_form = AuthForm(driver)
         super(ContentPage, self).__init__(driver, self.auth_form.locators.root)
         self.main_view = MainView(self.driver)
-        self.filters = Filters(self.driver)
+        self.filters = Filter(self.driver)
     
     def open_filters(self):
         self.main_view.click_filters_btn()
