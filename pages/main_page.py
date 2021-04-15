@@ -168,3 +168,29 @@ class MainPage(BasePage):
 
     def check_add_my_list_clicked(self) -> bool:
         return self.popup_film.check_add_my_list_clicked()
+
+    def regist(self, email, password, repeated_password):
+        self.reg_form.set_email(email)
+        self.reg_form.set_password(password)
+        self.reg_form.set_repeated_password(repeated_password)
+        self.reg_form.submit()
+
+    def check_registr(self) -> bool:
+        return self.navbar_form.check_auth_is_right()
+
+    def check_regist_email_error(self, error_text: str) -> bool:
+        return self.reg_form.check_email_error(error_text)
+
+    def check_regist_password_error(self, error_text: str) -> bool:
+        return self.reg_form.check_password_error(error_text)
+
+    def check_repeated_regist_password_error(self, error_text: str) -> bool:
+        return self.reg_form.check_repeated_password_error(error_text)
+
+    def check_auth_popup_appear(self) -> bool:
+        self.reg_form.click_auth_btn()
+        return self.auth_form.check_appearance()
+
+    def check_closed_popup(self) -> bool:
+        self.reg_form.click_close_btn()
+        return self.reg_form.check_disappear()
