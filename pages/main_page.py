@@ -129,3 +129,24 @@ class MainPage(BasePage):
     
     def check_search_prompt_window_appearance(self) -> bool:
         return self.navbar_form.check_search_prompt_window_appearance()
+
+    def click_like(self):
+        self.infoblock_film.click_like_button()
+
+    def click_dislike(self):
+        self.infoblock_film.click_dislike_button()
+
+    def click_add_my_list_infoblock(self):
+        self.infoblock_film.click_add_my_list_button()
+
+    def check_auth_popup_open(self) -> bool:
+        return self.infoblock_film.check_auth_popup_open()
+
+    def open_infoblock(self):
+        self.infoblock_film.open_infoblock()
+
+    def click_add_my_list_popup(self):
+        self.popup_film.click_add_my_list_button()
+
+    def check_add_my_list_clicked(self) -> bool:
+        return self.popup_film.check_add_my_list_clicked()
