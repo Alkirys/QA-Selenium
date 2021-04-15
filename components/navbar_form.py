@@ -11,6 +11,7 @@ class NavbarLocators:
     def __init__(self):
         self.login_menu_btn = '//img[@class="header__arrow"]'
         self.login_btn = '//*[contains(text(),"Вход")]'
+        self.exit_btn = '//*[contains(text(),"Выйти")]'
         self.reg_btn = '//*[contains(text(),"Регистрация")]'
         self.my_list_btn = '//a[@href="/mylist"]'
         self.search_magnifier_to_open = '//img[@class="header__search-img control__item"]'
@@ -46,6 +47,15 @@ class NavbarForm(BaseComponent):
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.login_btn))
+        )
+        submit.click()
+
+    def click_exit_button(self):
+        """
+        Кликает на кнопку "Вход"
+        """
+        submit = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.presence_of_element_located((By.XPATH, self.locators.exit_btn))
         )
         submit.click()
     
@@ -111,6 +121,18 @@ class NavbarForm(BaseComponent):
         element = self.wait.until(
             EC.visibility_of_element_located((By.XPATH, self.locators.my_list_btn)))
         return element.text
+
+    def check_exit_is_right(self) -> bool:
+        """
+        Ождиает пока не откроется главная страница на которой будет вкладка "Мой список"
+        """
+        try:
+            element = self.wait.until(
+                EC.invisibility_of_element_located((By.XPATH, self.locators.exit_btn))
+            )
+        except TimeoutException:
+            return False
+        return True
     
     def check_search_line_appearance(self) -> bool:
         """

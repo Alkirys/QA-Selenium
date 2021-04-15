@@ -1,4 +1,6 @@
 from components.navbar_form import NavbarForm
+from components.auth_form import AuthForm
+from components.subscription_form import SubscriptionForm
 from components.settings_form import SettingsForm
 from pages.base import BasePage
 import pyautogui
@@ -13,6 +15,7 @@ class ProfilePage(BasePage):
     def __init__(self, driver):
         self.PATH = 'profile'
         self.settings_form = SettingsForm(driver)
+        self.subscription_form = SubscriptionForm(driver)
         super(ProfilePage, self).__init__(driver, self.settings_form.locators.root)
         self.navbar_form = NavbarForm(self.driver)
 
@@ -56,7 +59,9 @@ class ProfilePage(BasePage):
 
     def change_new_password(self, password):
         self.settings_form.set_new_password(password)
-        self.settings_form.submit_form_password()
+
+    def change_again_password(self, password):
+        self.settings_form.set_again_password(password)
 
     def submit_form(self):
         self.settings_form.submit_form_password()
@@ -69,3 +74,14 @@ class ProfilePage(BasePage):
         curr = self.navbar_form.current_avatar()
         return not prev == curr
 
+    def click_close_button(self):
+        self.settings_form.click_close_button()
+
+    def check_close_clicked(self) -> bool:
+        return self.settings_form.check_settings_closed()
+
+    def click_subscription_button(self):
+        self.subscription_form.click_subscription()
+
+    def check_umoney_redirected(self) -> bool:
+        return self.subscription_form.check_umoney_open()
