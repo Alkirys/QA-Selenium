@@ -1,5 +1,4 @@
 import unittest
-import time
 
 from pages.serial_page import SerialPage
 from setup.default_setup import default_setup

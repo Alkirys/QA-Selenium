@@ -1,5 +1,4 @@
 import unittest
-import time
 
 from pages.main_page import MainPage
 from setup.default_setup import default_setup

@@ -7,7 +7,7 @@ from pages.base import BasePage
 
 class FilmPage(BasePage):
     """
-    Главная Страница
+    Страница фильма
     """
     def __init__(self, driver):
         self.PATH = 'movies'
@@ -39,7 +39,6 @@ class FilmPage(BasePage):
             for i in range(0, films_len):
                 films = self.infoblock_film.get_films()
                 self.infoblock_film.click_film(films[i])
-                self.infoblock_film.check_infoblock_open()
                 print(i)
                 if self.infoblock_film.check_subscription_label():
                     return

@@ -4,7 +4,7 @@ from pages.base import BasePage
 
 class MyListPage(BasePage):
     """
-    Главная Страница
+    Страница избранного
     """
     def __init__(self, driver):
         self.PATH = 'mylist'

@@ -5,7 +5,7 @@ from pages.base import BasePage
 
 class SerialPage(BasePage):
     """
-    Главная Страница
+    Страница сериала
     """
 
     def __init__(self, driver):

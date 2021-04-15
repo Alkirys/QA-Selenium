@@ -23,7 +23,6 @@ class AuthForm(BaseComponent):
     def set_email(self, email: str):
         """
         Вводит логин в окне авторизации
-        :param email: email пользователя
         """
         user_email = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.email_field))
@@ -33,7 +32,6 @@ class AuthForm(BaseComponent):
     def set_password(self, pwd: str):
         """
         Вводит пароль в окне авторизации
-        :param pwd: пароль пользователя
         """
         password = WebDriverWait(self.driver, 30, 0.1).until(
             EC.element_to_be_clickable((By.XPATH, self.locators.password_field))

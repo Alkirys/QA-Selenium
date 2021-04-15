@@ -20,7 +20,7 @@ class Filter(BaseComponent):
 
     def click_genres_button(self):
         """
-        Вызывает подменю для входа
+        Нажимает на кнопку "Фильтр"
         """
         films = WebDriverWait(self.driver, 30, 0.1).until(
             EC.element_to_be_clickable((By.XPATH, self.locators.genres_button))
@@ -29,7 +29,7 @@ class Filter(BaseComponent):
 
     def get_genres_refs(self):
         """
-        Вызывает подменю для входа
+        Получает элементы всех жанров
         """
         genres = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.genres_refs))
@@ -38,7 +38,7 @@ class Filter(BaseComponent):
 
     def click_genre(self, genre):
         """
-        Вызывает подменю для входа
+        Нажимает на один из жанров
         """
         genre.click()
 

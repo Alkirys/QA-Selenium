@@ -41,7 +41,7 @@ class PopupFilm(BaseComponent):
 
     def open_popup(self):
         """
-        Открывает инфоблок
+        Открывает попап фильма
         """
         film = WebDriverWait(self.driver, 30, 0.1).until(
             EC.visibility_of_element_located((By.XPATH, self.locators.popup_button))
@@ -69,7 +69,7 @@ class PopupFilm(BaseComponent):
 
     def click_dislike_button(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку DisLike
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.element_to_be_clickable((By.XPATH, self.locators.popup_dislike_button))
@@ -79,7 +79,7 @@ class PopupFilm(BaseComponent):
 
     def check_dislike_clicked(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, изменилась ли картинка на кнопке DisLike после нажатия
         """
         is_liked = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.popup_dislike_button_image))
@@ -88,7 +88,7 @@ class PopupFilm(BaseComponent):
 
     def click_genre_anchor(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на жанр
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.genre_anchor))
@@ -97,7 +97,7 @@ class PopupFilm(BaseComponent):
 
     def check_genre_redirect(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыта ли страница жанра
         """
         is_liked = self.wait.until(
             lambda driver: self.genre_url in driver.current_url
@@ -106,7 +106,7 @@ class PopupFilm(BaseComponent):
 
     def click_actor_anchor(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на актера
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.actor_anchor))
@@ -115,7 +115,7 @@ class PopupFilm(BaseComponent):
 
     def check_actor_redirect(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыта ли страница актера
         """
         is_liked = self.wait.until(
             lambda driver: self.actor_url in driver.current_url
@@ -124,7 +124,7 @@ class PopupFilm(BaseComponent):
 
     def click_director_anchor(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на режиссера
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.director_anchor))
@@ -133,7 +133,7 @@ class PopupFilm(BaseComponent):
 
     def check_director_redirect(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыта ли страница режиссера
         """
         is_liked = self.wait.until(
             lambda driver: self.director_url in driver.current_url
@@ -142,7 +142,7 @@ class PopupFilm(BaseComponent):
 
     def is_same_films(self) -> bool:
         """
-        Нажимает на кнопку Like
+        Проверяет, есть ли похожие фильмы в попвпе
         """
         paragraphs = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.popup_paragraphs))
@@ -154,7 +154,7 @@ class PopupFilm(BaseComponent):
 
     def click_same_film(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на фильм из "Похожее"
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.same_film))
@@ -164,7 +164,7 @@ class PopupFilm(BaseComponent):
 
     def check_same_film_name(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыт ои попар фильма
         """
         is_liked = self.wait.until(
             lambda driver: "mid=" + self.same_film_id in driver.current_url
@@ -174,7 +174,7 @@ class PopupFilm(BaseComponent):
 
     def click_season_if_exist(self) -> bool:
         """
-        Нажимает на кнопку Like
+        Нажимает на сезон, если сезонов больше чем 1
         """
         paragraphs = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.season_button))
@@ -188,7 +188,7 @@ class PopupFilm(BaseComponent):
 
     def check_season_changed(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, изменилтсь ли серии в попапе
         """
         seria = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.series_button))
@@ -202,7 +202,7 @@ class PopupFilm(BaseComponent):
 
     def click_episode(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку серию
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.series_button))
@@ -215,7 +215,7 @@ class PopupFilm(BaseComponent):
 
     def check_player_is_open(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, отерыт ли плеер
         """
         is_redirect = self.wait.until(
             lambda driver: self.player_url in driver.current_url

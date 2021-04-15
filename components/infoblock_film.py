@@ -44,15 +44,9 @@ class InfoblockFilm(BaseComponent):
         )
         film.click()
 
-    def check_infoblock_open(self) -> bool:
-        """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
-        """
-        return True
-
     def click_infoblock_tab_button(self, button_text):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку "Детали"/"Сезоны"
         """
         buttons = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.details_button))
@@ -64,7 +58,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_details_clicked(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыт ли инфоюлок на вкладке "Детали"
         """
         details_block = WebDriverWait(self.driver, 30, 0.1).until(
             EC.visibility_of_all_elements_located((By.XPATH, self.locators.details_block))
@@ -73,7 +67,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_seasons_clicked(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, откоыт ли инфоюлок на вкладке "Сезоны"
         """
         seasons_block = WebDriverWait(self.driver, 30, 0.1).until(
             EC.visibility_of_all_elements_located((By.XPATH, self.locators.seasons_block))
@@ -82,7 +76,7 @@ class InfoblockFilm(BaseComponent):
 
     def click_season_button(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку сезона
         """
         button = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.season_button))
@@ -91,7 +85,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_episodes_open(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, видны ли серии
         """
         episodes_names = WebDriverWait(self.driver, 30, 0.1).until(
             EC.visibility_of_all_elements_located((By.XPATH, self.locators.episode_name))
@@ -100,7 +94,7 @@ class InfoblockFilm(BaseComponent):
 
     def click_episode(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку серию сериала
         """
         button = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.episode_button))
@@ -115,7 +109,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_player_open(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, открыт ли плеер
         """
         is_redirect = self.wait.until(
             lambda driver: self.player_url in driver.current_url
@@ -125,7 +119,7 @@ class InfoblockFilm(BaseComponent):
 
     def click_close_button(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку закоытия инфоблока
         """
         button = WebDriverWait(self.driver, 30, 0.1).until(
             EC.element_to_be_clickable((By.XPATH, self.locators.close_button))
@@ -134,7 +128,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_infoblock_closed(self) -> bool:
         """
-        Проверяет, изменилась ли картинка на кнопке Like после нажатия
+        Проверяет, закоыт ли инфоблок
         """
         is_closed = WebDriverWait(self.driver, 30, 0.1).until(
             EC.invisibility_of_element_located((By.XPATH, self.locators.infoblock_wrapper))
@@ -143,7 +137,7 @@ class InfoblockFilm(BaseComponent):
 
     def click_my_list_button(self) -> bool:
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку "Мой список"
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
             EC.element_to_be_clickable((By.XPATH, self.locators.add_my_list_button))
@@ -157,7 +151,7 @@ class InfoblockFilm(BaseComponent):
 
     def get_films(self):
         """
-        Нажимает на кнопку Like
+        Получает элементы фильмов
         """
         films = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.film_buttons_list))
@@ -166,13 +160,13 @@ class InfoblockFilm(BaseComponent):
 
     def click_film(self, film):
         """
-        Нажимает на кнопку Like
+        Нажимает на фильм
         """
         film.click()
 
     def check_subscription_label(self):
         """
-        Нажимает на кнопку Like
+        Пррверяет нужна ли подписка для просмотра
         """
         label = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.need_subscription_label))
@@ -184,7 +178,7 @@ class InfoblockFilm(BaseComponent):
 
     def click_play_button(self):
         """
-        Нажимает на кнопку Like
+        Нажимает на кнопку открытя плеера
         """
         button = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_element_located((By.XPATH, self.locators.play_button))
@@ -193,7 +187,7 @@ class InfoblockFilm(BaseComponent):
 
     def check_subscription_popup_open(self) -> bool:
         """
-        Нажимает на кнопку Like
+        Проверяет, появился ли попап с требованием подписки
         """
         label = WebDriverWait(self.driver, 30, 0.1).until(
             EC.visibility_of_element_located((By.XPATH, self.locators.subscribe_button))

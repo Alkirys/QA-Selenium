@@ -19,7 +19,7 @@ class MyListFilmsCounter(BaseComponent):
 
     def count_films(self) -> int:
         """
-        Вызывает подменю для входа
+        Счатает количество фильмов
         """
         films = WebDriverWait(self.driver, 30, 0.1).until(
             EC.presence_of_all_elements_located((By.XPATH, self.locators.film_button))
