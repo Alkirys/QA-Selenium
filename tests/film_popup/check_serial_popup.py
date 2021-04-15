@@ -5,7 +5,7 @@ from pages.serial_page import SerialPage
 from setup.default_setup import default_setup
 
 
-class CheckPopup(unittest.TestCase):
+class CheckSerialPopup(unittest.TestCase):
 
     def setUp(self) -> None:
         default_setup(self)

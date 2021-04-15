@@ -10,11 +10,11 @@ class AuthLocators:
     def __init__(self):
         self.root = '//div[@class="content__info-block-wrapper"]'
         # self.film_button = '//div[@class="content__slider-item"]/button'
-        self.infoblock_button = '//a[@class="preview__btn info-btn"]'
-        self.infoblock_like_button = '//button[@class="modal__like-btn like-btn item__btn"]'
-        self.infoblock_like_button_image = '//button[@class="modal__like-btn like-btn item__btn"]/img'
-        self.infoblock_dislike_button = '//button[@class="modal__dislike-btn dislike-btn item__btn"]'
-        self.infoblock_dislike_button_image = '//button[@class="modal__dislike-btn dislike-btn item__btn"]/img'
+        self.popup_button = '//a[@class="preview__btn info-btn"]'
+        self.popup_like_button = '//button[@class="modal__like-btn like-btn item__btn"]'
+        self.popup_like_button_image = '//button[@class="modal__like-btn like-btn item__btn"]/img'
+        self.popup_dislike_button = '//button[@class="modal__dislike-btn dislike-btn item__btn"]'
+        self.popup_dislike_button_image = '//button[@class="modal__dislike-btn dislike-btn item__btn"]/img'
         self.genre_anchor = '//a[@class="genre-item__value item-link"]'
         self.actor_anchor = '//a[@class="cast-item__link item-link"]'
         self.director_anchor = '//a[@class="director-item__value item-link"]'
@@ -24,9 +24,9 @@ class AuthLocators:
         self.series_button = '//div[@class="modal__grid modal__season-grid"]/div/div/button'
 
 
-class InfoblockFilm(BaseComponent):
+class PopupFilm(BaseComponent):
     def __init__(self, driver):
-        super(InfoblockFilm, self).__init__(driver)
+        super(PopupFilm, self).__init__(driver)
 
         self.wait = WebDriverWait(self.driver, 20)
         self.locators = AuthLocators()
@@ -39,12 +39,12 @@ class InfoblockFilm(BaseComponent):
         self.actor_url = "https://www.flicksbox.ru/actor"
         self.director_url = "https://www.flicksbox.ru/director"
 
-    def open_infoblock(self):
+    def open_popup(self):
         """
         Открывает инфоблок
         """
         film = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.visibility_of_element_located((By.XPATH, self.locators.infoblock_button))
+            EC.visibility_of_element_located((By.XPATH, self.locators.popup_button))
         )
         film.click()
 
@@ -53,7 +53,7 @@ class InfoblockFilm(BaseComponent):
         Нажимает на кнопку Like
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.element_to_be_clickable((By.XPATH, self.locators.infoblock_like_button))
+            EC.element_to_be_clickable((By.XPATH, self.locators.popup_like_button))
         )
         self.like_image_src = submit.get_attribute("src")
         submit.click()
@@ -63,7 +63,7 @@ class InfoblockFilm(BaseComponent):
         Проверяет, изменилась ли картинка на кнопке Like после нажатия
         """
         is_liked = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.presence_of_element_located((By.XPATH, self.locators.infoblock_like_button_image))
+            EC.presence_of_element_located((By.XPATH, self.locators.popup_like_button_image))
         )
         return is_liked.get_attribute("src") != self.like_image_src
 
@@ -72,7 +72,7 @@ class InfoblockFilm(BaseComponent):
         Нажимает на кнопку Like
         """
         submit = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.element_to_be_clickable((By.XPATH, self.locators.infoblock_dislike_button))
+            EC.element_to_be_clickable((By.XPATH, self.locators.popup_dislike_button))
         )
         self.dislike_image_src = submit.get_attribute("src")
         submit.click()
@@ -82,7 +82,7 @@ class InfoblockFilm(BaseComponent):
         Проверяет, изменилась ли картинка на кнопке Like после нажатия
         """
         is_liked = WebDriverWait(self.driver, 30, 0.1).until(
-            EC.presence_of_element_located((By.XPATH, self.locators.infoblock_dislike_button_image))
+            EC.presence_of_element_located((By.XPATH, self.locators.popup_dislike_button_image))
         )
         return is_liked.get_attribute("src") != self.dislike_image_src
 
@@ -211,15 +211,14 @@ class InfoblockFilm(BaseComponent):
         serial_season = submit.get_attribute("data-season")
         serial_episode = submit.get_attribute("data-episode")
         self.player_url = 'https://www.flicksbox.ru/watch/' + serial_id + '?season=' + serial_season + '&episode=' + serial_episode
-        print(self.player_url)
         submit.click()
 
     def check_player_is_open(self) -> bool:
         """
         Проверяет, изменилась ли картинка на кнопке Like после нажатия
         """
-        is_liked = self.wait.until(
+        is_redirect = self.wait.until(
             lambda driver: self.player_url in driver.current_url
         )
         self.player_url = ""
-        return is_liked
+        return is_redirect
