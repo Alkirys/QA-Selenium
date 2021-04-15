@@ -5,6 +5,7 @@ from components.settings_form import SettingsForm
 from pages.base import BasePage
 import pyautogui
 import os
+import time
 
 
 class ProfilePage(BasePage):
@@ -71,6 +72,8 @@ class ProfilePage(BasePage):
         self.settings_form.click_upload_avatar()
         pyautogui.write(os.path.abspath('./img/avatar.jpg'))
         pyautogui.press('enter')
+        pyautogui.press('enter')
+        self.open()
         curr = self.navbar_form.current_avatar()
         return not prev == curr
 
