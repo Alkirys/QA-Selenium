@@ -1,5 +1,6 @@
 from components.navbar_form import NavbarForm
 from components.auth_form import AuthForm
+from components.reg_form import RegForm
 from components.popup_film import PopupFilm
 from components.infoblock_film import InfoblockFilm
 from components.preview import Preview
@@ -17,6 +18,7 @@ class MainPage(BasePage):
         self.PATH = 'browse'
         self.auth_form = AuthForm(driver)
         super(MainPage, self).__init__(driver, self.auth_form.locators.root)
+        self.reg_form = RegForm(driver)
         self.navbar_form = NavbarForm(self.driver)
         self.popup_film = PopupFilm(self.driver)
         self.infoblock_film = InfoblockFilm(self.driver)
@@ -27,6 +29,13 @@ class MainPage(BasePage):
     def open_auth_popup(self):
         self.navbar_form.click_login_menu()
         self.navbar_form.click_login_button()
+
+    def open_reg_popup(self):
+        self.navbar_form.click_login_menu()
+        self.navbar_form.click_reg_button()
+    
+    def move_to_reg_popup(self):
+        self.auth_form.click_reg_btn()
 
     def auth(self, email, password):
         self.auth_form.set_email(email)
@@ -70,6 +79,9 @@ class MainPage(BasePage):
     def check_auth(self) -> bool:
         return self.navbar_form.check_auth_is_right()
 
+    def check_reg_popup_appearance(self) -> bool:
+        return self.reg_form.check_appearance()
+
     def open_popup(self):
         self.popup_film.open_popup()
 
@@ -111,6 +123,12 @@ class MainPage(BasePage):
 
     def check_same_film_popup_open(self) -> bool:
         return self.popup_film.check_same_film_name()
+    
+    def check_auth_password_error(self, error_text: str) -> bool:
+        return self.auth_form.check_password_error(error_text)
+    
+    def check_auth_email_error(self, error_text: str) -> bool:
+        return self.auth_form.check_email_error(error_text)
     
     def check_info_popup_appearance(self) -> bool:
         return self.popup_film.check_appearance()
