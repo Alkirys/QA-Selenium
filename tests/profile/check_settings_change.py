@@ -56,15 +56,12 @@ class CheckSettingsChange(unittest.TestCase):
         is_clicked = self.profile_page.check_safety_button_clicked()
         self.assertTrue(is_clicked)
 
-    def test_change_email(self):
+    def test_change_password(self):
         self.test_click_safety_button()
         self.profile_page.change_password(self.PASSWORD, self.PASSWORD + "s")
-        # time.sleep(30)
         self.profile_page.click_info_button()
         self.profile_page.click_safety_button()
         self.profile_page.submit_form()
-        # print("ok")
-        # time.sleep(30)
         is_error = self.profile_page.check_error_with_text("Неверный пароль")
         self.assertTrue(is_error)
 
@@ -80,8 +77,23 @@ class CheckSettingsChange(unittest.TestCase):
     def test_password_short_error(self):
         self.test_click_safety_button()
         self.profile_page.change_new_password("123")
+        self.profile_page.submit_form()
         is_error = self.profile_page.check_error_with_text("Пароль должен содержать не менее 6 символов")
         self.assertTrue(is_error)
+
+    def test_passwords_different(self):
+        self.test_click_safety_button()
+        self.profile_page.change_new_password("12334467456")
+        self.profile_page.change_again_password("122343434")
+        self.profile_page.submit_form()
+        is_error = self.profile_page.check_error_with_text("Пароли не совпадают")
+        self.assertTrue(is_error)
+
+    def test_settings_close(self):
+        self.test_open_settings()
+        self.profile_page.click_close_button()
+        is_closed = self.profile_page.check_close_clicked()
+        self.assertTrue(is_closed)
 
     def tearDown(self):
         self.driver.quit()

@@ -53,7 +53,15 @@ class ProfilePage(BasePage):
 
     def change_new_password(self, password):
         self.settings_form.set_new_password(password)
-        self.settings_form.submit_form_password()
+
+    def change_again_password(self, password):
+        self.settings_form.set_again_password(password)
 
     def submit_form(self):
         self.settings_form.submit_form_password()
+
+    def click_close_button(self):
+        self.settings_form.click_close_button()
+
+    def check_close_clicked(self) -> bool:
+        return self.settings_form.check_settings_closed()

@@ -25,6 +25,8 @@ class SettingsLocators:
         self.safety_button = '//a[@class="menu-bar__list-item-text list-item__last-child"]'
         self.info_button = '//a[@class="menu-bar__list-item-text list-item__first-child"]'
         self.safety_clicked_button = '//a[@class="menu-bar__list-item-text list-item__last-child list-item-text_selected"]'
+        self.close_button = '//button[@class="close-btn profile__close-btn"]'
+        self.settings_wrapper = '//*[@class="profile-view__profile-wrapper"]'
 
 
 class SettingsForm(BaseComponent):
@@ -177,3 +179,21 @@ class SettingsForm(BaseComponent):
             EC.visibility_of_element_located((By.XPATH, self.locators.safety_clicked_button))
         )
         return bool(button)
+
+    def click_close_button(self):
+        """
+        Нажимает на кнопку закоытия инфоблока
+        """
+        button = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.element_to_be_clickable((By.XPATH, self.locators.close_button))
+        )
+        button.click()
+
+    def check_settings_closed(self) -> bool:
+        """
+        Проверяет, закоыт ли инфоблок
+        """
+        is_closed = WebDriverWait(self.driver, 30, 0.1).until(
+            EC.invisibility_of_element_located((By.XPATH, self.locators.settings_wrapper))
+        )
+        return is_closed
