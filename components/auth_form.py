@@ -14,6 +14,7 @@ class AuthLocators:
         self.password_error_label = '//span[@class="error" and @id="password"]'
         self.email_error_label = '//span[@class="error" and @id="email"]'
         self.reg_btn = '//a[@class="popup-helper__modal"]'
+        self.header = '//h1[@class="popup-container__heading"]'
 
 
 class AuthForm(BaseComponent):
@@ -80,3 +81,13 @@ class AuthForm(BaseComponent):
         except TimeoutException:
             return False
         return True
+
+    def check_appearance(self) -> bool:
+        """
+        Ождиает пока не откроется попап регистрации
+        """
+        element = self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, self.locators.header)))
+        if element:
+            return element.text == "Авторизация"
+        return False
