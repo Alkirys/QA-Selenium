@@ -72,7 +72,9 @@ class Player(BaseComponent):
         """
         Кликает в пространство
         """
-        self.driver.execute_script("window.click()")
+        element = self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, '//body')))
+        element.click()
 
     def check_paused(self) -> bool:
         """
